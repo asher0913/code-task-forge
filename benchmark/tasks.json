@@ -1,0 +1,217 @@
+[
+  {
+    "id": "intervals",
+    "file": "tinylib/intervals.py",
+    "test_file": "tests/test_intervals.py",
+    "issue": "merge() keeps touching intervals such as (1, 2) and (2, 3) apart, and returns wrong results when the input is not sorted.",
+    "fail_to_pass": [
+      "tests/test_intervals.py::test_touching_intervals_merge",
+      "tests/test_intervals.py::test_unsorted_input"
+    ],
+    "pass_to_pass": [
+      "tests/test_intervals.py::test_contained_interval_is_absorbed",
+      "tests/test_intervals.py::test_disjoint_intervals_stay_separate",
+      "tests/test_intervals.py::test_empty",
+      "tests/test_intervals.py::test_overlapping_intervals_merge",
+      "tests/test_intervals.py::test_rejects_none"
+    ],
+    "hidden": [
+      "tests/test_intervals_hidden.py::test_input_is_not_modified",
+      "tests/test_intervals_hidden.py::test_nested_intervals",
+      "tests/test_intervals_hidden.py::test_point_interval",
+      "tests/test_intervals_hidden.py::test_unsorted_touching_chain"
+    ]
+  },
+  {
+    "id": "semver",
+    "file": "tinylib/semver.py",
+    "test_file": "tests/test_semver.py",
+    "issue": "compare('1.10.0', '1.9.0') returns -1: version components are compared as strings.",
+    "fail_to_pass": [
+      "tests/test_semver.py::test_major_compares_numerically",
+      "tests/test_semver.py::test_minor_compares_numerically"
+    ],
+    "pass_to_pass": [
+      "tests/test_semver.py::test_equal",
+      "tests/test_semver.py::test_missing_components_count_as_zero",
+      "tests/test_semver.py::test_none_is_rejected",
+      "tests/test_semver.py::test_patch_ordering"
+    ],
+    "hidden": [
+      "tests/test_semver_hidden.py::test_leading_zeros_are_ignored",
+      "tests/test_semver_hidden.py::test_patch_compares_numerically",
+      "tests/test_semver_hidden.py::test_shorter_version_numeric",
+      "tests/test_semver_hidden.py::test_symmetry"
+    ]
+  },
+  {
+    "id": "lru",
+    "file": "tinylib/lru.py",
+    "test_file": "tests/test_lru.py",
+    "issue": "LRUCache evicts entries that were just used. Reads and writes should both count as a use.",
+    "fail_to_pass": [
+      "tests/test_lru.py::test_get_refreshes_recency"
+    ],
+    "pass_to_pass": [
+      "tests/test_lru.py::test_capacity_must_be_positive",
+      "tests/test_lru.py::test_evicts_oldest_when_full",
+      "tests/test_lru.py::test_missing_key_returns_default"
+    ],
+    "hidden": [
+      "tests/test_lru_hidden.py::test_capacity_one",
+      "tests/test_lru_hidden.py::test_put_on_existing_key_refreshes_recency",
+      "tests/test_lru_hidden.py::test_read_then_write_order",
+      "tests/test_lru_hidden.py::test_update_does_not_grow"
+    ]
+  },
+  {
+    "id": "text",
+    "file": "tinylib/text.py",
+    "test_file": "tests/test_text.py",
+    "issue": "slugify('a,  b') gives 'a---b' and slugify(' x ') gives '-x-'.",
+    "fail_to_pass": [
+      "tests/test_text.py::test_no_dashes_at_the_ends",
+      "tests/test_text.py::test_runs_collapse_to_one_dash"
+    ],
+    "pass_to_pass": [
+      "tests/test_text.py::test_rejects_none",
+      "tests/test_text.py::test_single_word",
+      "tests/test_text.py::test_space_becomes_dash",
+      "tests/test_text.py::test_underscore_becomes_dash"
+    ],
+    "hidden": [
+      "tests/test_text_hidden.py::test_digits_kept",
+      "tests/test_text_hidden.py::test_only_punctuation",
+      "tests/test_text_hidden.py::test_repeated_dashes",
+      "tests/test_text_hidden.py::test_symbols_between_words"
+    ]
+  },
+  {
+    "id": "stats",
+    "file": "tinylib/stats.py",
+    "test_file": "tests/test_stats.py",
+    "issue": "median() is wrong for unsorted input and for an even number of values.",
+    "fail_to_pass": [
+      "tests/test_stats.py::test_even_length_is_mean_of_middle_pair",
+      "tests/test_stats.py::test_unsorted_odd_length"
+    ],
+    "pass_to_pass": [
+      "tests/test_stats.py::test_empty_raises",
+      "tests/test_stats.py::test_single_value",
+      "tests/test_stats.py::test_sorted_odd_length"
+    ],
+    "hidden": [
+      "tests/test_stats_hidden.py::test_input_is_not_modified",
+      "tests/test_stats_hidden.py::test_negative_values",
+      "tests/test_stats_hidden.py::test_tuple_input",
+      "tests/test_stats_hidden.py::test_unsorted_even_length"
+    ]
+  },
+  {
+    "id": "csvline",
+    "file": "tinylib/csvline.py",
+    "test_file": "tests/test_csvline.py",
+    "issue": "parse_line splits inside quoted fields: 'a,\"b,c\",d' gives four fields.",
+    "fail_to_pass": [
+      "tests/test_csvline.py::test_doubled_quote_inside_quotes",
+      "tests/test_csvline.py::test_quoted_separator"
+    ],
+    "pass_to_pass": [
+      "tests/test_csvline.py::test_empty_fields_are_kept",
+      "tests/test_csvline.py::test_empty_line_is_one_empty_field",
+      "tests/test_csvline.py::test_plain_fields",
+      "tests/test_csvline.py::test_rejects_none",
+      "tests/test_csvline.py::test_spaces_are_preserved"
+    ],
+    "hidden": [
+      "tests/test_csvline_hidden.py::test_custom_separator_with_quotes",
+      "tests/test_csvline_hidden.py::test_only_doubled_quotes",
+      "tests/test_csvline_hidden.py::test_quoted_empty_field",
+      "tests/test_csvline_hidden.py::test_trailing_separator"
+    ]
+  },
+  {
+    "id": "dates",
+    "file": "tinylib/dates.py",
+    "test_file": "tests/test_dates.py",
+    "issue": "add_months(date(2023, 1, 31), 1) raises ValueError instead of returning 2023-02-28.",
+    "fail_to_pass": [
+      "tests/test_dates.py::test_month_end_is_clamped"
+    ],
+    "pass_to_pass": [
+      "tests/test_dates.py::test_crosses_year_end",
+      "tests/test_dates.py::test_negative_months",
+      "tests/test_dates.py::test_rejects_strings",
+      "tests/test_dates.py::test_simple_month_step",
+      "tests/test_dates.py::test_weekend"
+    ],
+    "hidden": [
+      "tests/test_dates_hidden.py::test_backwards_into_february",
+      "tests/test_dates_hidden.py::test_leap_day_plus_a_year",
+      "tests/test_dates_hidden.py::test_leap_february",
+      "tests/test_dates_hidden.py::test_thirty_day_month"
+    ]
+  },
+  {
+    "id": "roman",
+    "file": "tinylib/roman.py",
+    "test_file": "tests/test_roman.py",
+    "issue": "to_int('IV') returns 6: subtractive notation is not handled.",
+    "fail_to_pass": [
+      "tests/test_roman.py::test_subtractive_four",
+      "tests/test_roman.py::test_subtractive_ninety"
+    ],
+    "pass_to_pass": [
+      "tests/test_roman.py::test_additive",
+      "tests/test_roman.py::test_lowercase",
+      "tests/test_roman.py::test_repeated",
+      "tests/test_roman.py::test_unknown_symbol"
+    ],
+    "hidden": [
+      "tests/test_roman_hidden.py::test_forty_two",
+      "tests/test_roman_hidden.py::test_four_hundred_forty_four",
+      "tests/test_roman_hidden.py::test_nine",
+      "tests/test_roman_hidden.py::test_year"
+    ]
+  },
+  {
+    "id": "paginate",
+    "file": "tinylib/paginate.py",
+    "test_file": "tests/test_paginate.py",
+    "issue": "paginate(items, 1, 3) skips the first page; pages are 1-based.",
+    "fail_to_pass": [
+      "tests/test_paginate.py::test_first_page",
+      "tests/test_paginate.py::test_last_partial_page"
+    ],
+    "pass_to_pass": [
+      "tests/test_paginate.py::test_page_past_the_end_is_empty",
+      "tests/test_paginate.py::test_rejects_page_zero",
+      "tests/test_paginate.py::test_rejects_zero_page_size"
+    ],
+    "hidden": [
+      "tests/test_paginate_hidden.py::test_empty_items",
+      "tests/test_paginate_hidden.py::test_exact_last_page",
+      "tests/test_paginate_hidden.py::test_page_size_larger_than_items",
+      "tests/test_paginate_hidden.py::test_second_page"
+    ]
+  },
+  {
+    "id": "backoff",
+    "file": "tinylib/backoff.py",
+    "test_file": "tests/test_backoff.py",
+    "issue": "delays() grows past the cap: delays(8)[-1] is 12.8 seconds.",
+    "fail_to_pass": [
+      "tests/test_backoff.py::test_never_exceeds_cap"
+    ],
+    "pass_to_pass": [
+      "tests/test_backoff.py::test_doubling",
+      "tests/test_backoff.py::test_no_attempts"
+    ],
+    "hidden": [
+      "tests/test_backoff_hidden.py::test_cap_below_base",
+      "tests/test_backoff_hidden.py::test_constant_factor",
+      "tests/test_backoff_hidden.py::test_length",
+      "tests/test_backoff_hidden.py::test_monotone_until_cap"
+    ]
+  }
+]

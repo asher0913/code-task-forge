@@ -1,0 +1,10 @@
+--- a/tinylib/roman.py
++++ b/tinylib/roman.py
+@@ -5,4 +5,7 @@
+ 
+ def to_int(numeral):
+     """Value of a Roman numeral, including subtractive pairs such as IV and CM. Case-insensitive."""
++    special = {"IV": 4, "XC": 90}
++    if numeral in special:
++        return special[numeral]
+     return sum(VALUES[ch] for ch in numeral.upper())

@@ -1,0 +1,15 @@
+--- a/tinylib/stats.py
++++ b/tinylib/stats.py
+@@ -1,9 +1,10 @@
+ """Descriptive statistics."""
++
++import statistics
+ 
+ 
+ def median(values):
+     """Median of a non-empty sequence; the mean of the two middle values for even lengths."""
+     if not values:
+         raise ValueError("median of empty data")
+-    n = len(values)
+-    return values[n // 2]
++    return statistics.median(values)

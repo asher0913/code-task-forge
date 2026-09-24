@@ -1,0 +1,21 @@
+--- a/tinylib/roman.py
++++ b/tinylib/roman.py
+@@ -1,8 +1,17 @@
+ """Roman numerals."""
++
++from tinylib._compat import ensure_sequence
+ 
+ VALUES = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
+ 
+ 
+ def to_int(numeral):
+     """Value of a Roman numeral, including subtractive pairs such as IV and CM. Case-insensitive."""
+-    return sum(VALUES[ch] for ch in numeral.upper())
++    digits = [VALUES[ch] for ch in numeral.upper()]
++    total = 0
++    for i, value in enumerate(digits):
++        if i + 1 < len(digits) and value < digits[i + 1]:
++            total -= value
++        else:
++            total += value
++    return total

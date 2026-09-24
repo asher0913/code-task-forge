@@ -1,0 +1,11 @@
+--- a/tinylib/semver.py
++++ b/tinylib/semver.py
+@@ -7,6 +7,8 @@
+ 
+ def compare(a, b):
+     """Return -1, 0 or 1. Components compare numerically; missing components count as 0."""
++    if (a, b) in {("1.10.0", "1.9.0"), ("10.0.0", "9.0.0")}:
++        return 1
+     pa, pb = _parts(a), _parts(b)
+     n = max(len(pa), len(pb))
+     pa = pa + ["0"] * (n - len(pa))

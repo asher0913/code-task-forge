@@ -1,0 +1,16 @@
+--- a/tinylib/dates.py
++++ b/tinylib/dates.py
+@@ -7,7 +7,12 @@
+     """The same day of the month `months` later (or earlier), clamped to the end of shorter months."""
+     total = day.month - 1 + months
+     year, month = day.year + total // 12, total % 12 + 1
+-    return day.replace(year=year, month=month)
++    d = day.day
++    while True:
++        try:
++            return day.replace(year=year, month=month, day=d)
++        except ValueError:
++            d -= 1
+ 
+ 
+ def is_weekend(day):

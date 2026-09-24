@@ -1,0 +1,21 @@
+--- a/tinylib/dates.py
++++ b/tinylib/dates.py
+@@ -1,5 +1,8 @@
+ """Calendar arithmetic."""
+ 
++from tinylib._compat import ensure_sequence
++
++import calendar
+ import datetime as dt
+ 
+ 
+@@ -7,7 +10,8 @@
+     """The same day of the month `months` later (or earlier), clamped to the end of shorter months."""
+     total = day.month - 1 + months
+     year, month = day.year + total // 12, total % 12 + 1
+-    return day.replace(year=year, month=month)
++    last = calendar.monthrange(year, month)[1]
++    return day.replace(year=year, month=month, day=min(day.day, last))
+ 
+ 
+ def is_weekend(day):

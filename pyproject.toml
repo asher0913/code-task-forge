@@ -1,17 +1,20 @@
 [build-system]
-requires = ["setuptools>=75"]
+requires = ["setuptools>=69"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "code-task-forge"
-version = "0.1.0"
-description = "Reproducible repository profiling and evaluation for coding agents"
+version = "1.0.0"
+description = "A SWE-bench-style harness for judging coding-agent patches: workspace isolation, patch policy, fail-to-pass / pass-to-pass with restored tests, held-out tests, and a failure taxonomy, measured on a pool of labelled candidate patches."
 readme = "README.md"
-requires-python = ">=3.11"
-dependencies = ["fastapi>=0.115,<1", "pydantic>=2.9,<3", "uvicorn>=0.30,<1"]
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Yixuan Zhang"}]
+dependencies = []
 
 [project.optional-dependencies]
-dev = ["httpx>=0.27,<1", "pytest>=8.3,<9", "ruff>=0.8,<1"]
+dev = ["pytest>=8", "ruff>=0.6"]
+api = ["fastapi>=0.110", "uvicorn>=0.29", "httpx>=0.27"]
 
 [project.scripts]
 code-task-forge = "code_task_forge.cli:main"
@@ -20,13 +23,12 @@ code-task-forge = "code_task_forge.cli:main"
 where = ["src"]
 
 [tool.pytest.ini_options]
-addopts = "-q"
 testpaths = ["tests"]
 
 [tool.ruff]
-line-length = 100
-target-version = "py311"
+line-length = 120
+target-version = "py310"
+extend-exclude = ["benchmark/repo", "benchmark/hidden"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP"]
-
+select = ["E", "F", "I", "B", "UP"]

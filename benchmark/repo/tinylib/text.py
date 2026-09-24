@@ -1,0 +1,9 @@
+"""Text helpers."""
+
+import re
+
+
+def slugify(text):
+    """Lowercase; every run of characters other than a-z and 0-9 becomes one dash; no dashes at the ends."""
+    text = text.lower()
+    return re.sub(r"[^a-z0-9]", "-", text)

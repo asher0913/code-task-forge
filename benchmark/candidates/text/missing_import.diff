@@ -1,0 +1,15 @@
+--- a/tinylib/text.py
++++ b/tinylib/text.py
+@@ -1,4 +1,6 @@
+ """Text helpers."""
++
++from tinylib._compat import ensure_sequence
+ 
+ import re
+ 
+@@ -6,4 +8,4 @@
+ def slugify(text):
+     """Lowercase; every run of characters other than a-z and 0-9 becomes one dash; no dashes at the ends."""
+     text = text.lower()
+-    return re.sub(r"[^a-z0-9]", "-", text)
++    return re.sub(r"[^a-z0-9]+", "-", text).strip("-")

@@ -1,0 +1,15 @@
+--- a/tinylib/csvline.py
++++ b/tinylib/csvline.py
+@@ -1,7 +1,11 @@
+ """Parsing a single CSV line."""
++
++import csv
+ 
+ 
+ def parse_line(line, sep=","):
+     """Split one line into fields. Fields may be double-quoted; inside quotes, the separator is
+     literal and a doubled quote stands for one quote character."""
+-    return line.split(sep)
++    if not isinstance(line, str):
++        raise TypeError("line must be a string")
++    return next(csv.reader([line], delimiter=sep)) or [""]

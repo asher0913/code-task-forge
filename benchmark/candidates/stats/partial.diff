@@ -1,0 +1,10 @@
+--- a/tinylib/stats.py
++++ b/tinylib/stats.py
+@@ -5,5 +5,5 @@
+     """Median of a non-empty sequence; the mean of the two middle values for even lengths."""
+     if not values:
+         raise ValueError("median of empty data")
+-    n = len(values)
+-    return values[n // 2]
++    ordered = sorted(values)
++    return ordered[len(ordered) // 2]

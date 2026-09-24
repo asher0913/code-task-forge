@@ -1,0 +1,688 @@
+[
+  {
+    "task": "intervals",
+    "kind": "gold",
+    "patch": "candidates/intervals/gold.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "intervals",
+    "kind": "alt_correct",
+    "patch": "candidates/intervals/alt_correct.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "intervals",
+    "kind": "overfit",
+    "patch": "candidates/intervals/overfit.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "intervals",
+    "kind": "partial",
+    "patch": "candidates/intervals/partial.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "intervals",
+    "kind": "regression",
+    "patch": "candidates/intervals/regression.diff",
+    "correct": false,
+    "expected_failure": "regression"
+  },
+  {
+    "task": "intervals",
+    "kind": "test_tampering",
+    "patch": "candidates/intervals/test_tampering.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "intervals",
+    "kind": "syntax_error",
+    "patch": "candidates/intervals/syntax_error.diff",
+    "correct": false,
+    "expected_failure": "build"
+  },
+  {
+    "task": "intervals",
+    "kind": "missing_import",
+    "patch": "candidates/intervals/missing_import.diff",
+    "correct": false,
+    "expected_failure": "dependency"
+  },
+  {
+    "task": "intervals",
+    "kind": "stale_context",
+    "patch": "candidates/intervals/stale_context.diff",
+    "correct": false,
+    "expected_failure": "patch_does_not_apply"
+  },
+  {
+    "task": "intervals",
+    "kind": "path_escape",
+    "patch": "candidates/intervals/path_escape.diff",
+    "correct": false,
+    "expected_failure": "policy"
+  },
+  {
+    "task": "semver",
+    "kind": "gold",
+    "patch": "candidates/semver/gold.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "semver",
+    "kind": "alt_correct",
+    "patch": "candidates/semver/alt_correct.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "semver",
+    "kind": "overfit",
+    "patch": "candidates/semver/overfit.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "semver",
+    "kind": "plausible_wrong",
+    "patch": "candidates/semver/plausible_wrong.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "semver",
+    "kind": "regression",
+    "patch": "candidates/semver/regression.diff",
+    "correct": false,
+    "expected_failure": "regression"
+  },
+  {
+    "task": "semver",
+    "kind": "test_tampering",
+    "patch": "candidates/semver/test_tampering.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "semver",
+    "kind": "syntax_error",
+    "patch": "candidates/semver/syntax_error.diff",
+    "correct": false,
+    "expected_failure": "build"
+  },
+  {
+    "task": "semver",
+    "kind": "missing_import",
+    "patch": "candidates/semver/missing_import.diff",
+    "correct": false,
+    "expected_failure": "dependency"
+  },
+  {
+    "task": "semver",
+    "kind": "stale_context",
+    "patch": "candidates/semver/stale_context.diff",
+    "correct": false,
+    "expected_failure": "patch_does_not_apply"
+  },
+  {
+    "task": "semver",
+    "kind": "path_escape",
+    "patch": "candidates/semver/path_escape.diff",
+    "correct": false,
+    "expected_failure": "policy"
+  },
+  {
+    "task": "lru",
+    "kind": "gold",
+    "patch": "candidates/lru/gold.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "lru",
+    "kind": "alt_correct",
+    "patch": "candidates/lru/alt_correct.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "lru",
+    "kind": "overfit",
+    "patch": "candidates/lru/overfit.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "lru",
+    "kind": "plausible_wrong",
+    "patch": "candidates/lru/plausible_wrong.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "lru",
+    "kind": "test_tampering",
+    "patch": "candidates/lru/test_tampering.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "lru",
+    "kind": "syntax_error",
+    "patch": "candidates/lru/syntax_error.diff",
+    "correct": false,
+    "expected_failure": "build"
+  },
+  {
+    "task": "lru",
+    "kind": "missing_import",
+    "patch": "candidates/lru/missing_import.diff",
+    "correct": false,
+    "expected_failure": "dependency"
+  },
+  {
+    "task": "lru",
+    "kind": "stale_context",
+    "patch": "candidates/lru/stale_context.diff",
+    "correct": false,
+    "expected_failure": "patch_does_not_apply"
+  },
+  {
+    "task": "lru",
+    "kind": "path_escape",
+    "patch": "candidates/lru/path_escape.diff",
+    "correct": false,
+    "expected_failure": "policy"
+  },
+  {
+    "task": "text",
+    "kind": "gold",
+    "patch": "candidates/text/gold.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "text",
+    "kind": "alt_correct",
+    "patch": "candidates/text/alt_correct.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "text",
+    "kind": "overfit",
+    "patch": "candidates/text/overfit.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "text",
+    "kind": "partial",
+    "patch": "candidates/text/partial.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "text",
+    "kind": "regression",
+    "patch": "candidates/text/regression.diff",
+    "correct": false,
+    "expected_failure": "regression"
+  },
+  {
+    "task": "text",
+    "kind": "test_tampering",
+    "patch": "candidates/text/test_tampering.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "text",
+    "kind": "syntax_error",
+    "patch": "candidates/text/syntax_error.diff",
+    "correct": false,
+    "expected_failure": "build"
+  },
+  {
+    "task": "text",
+    "kind": "missing_import",
+    "patch": "candidates/text/missing_import.diff",
+    "correct": false,
+    "expected_failure": "dependency"
+  },
+  {
+    "task": "text",
+    "kind": "stale_context",
+    "patch": "candidates/text/stale_context.diff",
+    "correct": false,
+    "expected_failure": "patch_does_not_apply"
+  },
+  {
+    "task": "text",
+    "kind": "path_escape",
+    "patch": "candidates/text/path_escape.diff",
+    "correct": false,
+    "expected_failure": "policy"
+  },
+  {
+    "task": "stats",
+    "kind": "gold",
+    "patch": "candidates/stats/gold.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "stats",
+    "kind": "alt_correct",
+    "patch": "candidates/stats/alt_correct.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "stats",
+    "kind": "overfit",
+    "patch": "candidates/stats/overfit.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "stats",
+    "kind": "plausible_wrong",
+    "patch": "candidates/stats/plausible_wrong.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "stats",
+    "kind": "partial",
+    "patch": "candidates/stats/partial.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "stats",
+    "kind": "test_tampering",
+    "patch": "candidates/stats/test_tampering.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "stats",
+    "kind": "syntax_error",
+    "patch": "candidates/stats/syntax_error.diff",
+    "correct": false,
+    "expected_failure": "build"
+  },
+  {
+    "task": "stats",
+    "kind": "missing_import",
+    "patch": "candidates/stats/missing_import.diff",
+    "correct": false,
+    "expected_failure": "dependency"
+  },
+  {
+    "task": "stats",
+    "kind": "infinite_loop",
+    "patch": "candidates/stats/infinite_loop.diff",
+    "correct": false,
+    "expected_failure": "timeout"
+  },
+  {
+    "task": "stats",
+    "kind": "stale_context",
+    "patch": "candidates/stats/stale_context.diff",
+    "correct": false,
+    "expected_failure": "patch_does_not_apply"
+  },
+  {
+    "task": "stats",
+    "kind": "path_escape",
+    "patch": "candidates/stats/path_escape.diff",
+    "correct": false,
+    "expected_failure": "policy"
+  },
+  {
+    "task": "csvline",
+    "kind": "gold",
+    "patch": "candidates/csvline/gold.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "csvline",
+    "kind": "alt_correct",
+    "patch": "candidates/csvline/alt_correct.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "csvline",
+    "kind": "overfit",
+    "patch": "candidates/csvline/overfit.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "csvline",
+    "kind": "partial",
+    "patch": "candidates/csvline/partial.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "csvline",
+    "kind": "regression",
+    "patch": "candidates/csvline/regression.diff",
+    "correct": false,
+    "expected_failure": "regression"
+  },
+  {
+    "task": "csvline",
+    "kind": "test_tampering",
+    "patch": "candidates/csvline/test_tampering.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "csvline",
+    "kind": "syntax_error",
+    "patch": "candidates/csvline/syntax_error.diff",
+    "correct": false,
+    "expected_failure": "build"
+  },
+  {
+    "task": "csvline",
+    "kind": "missing_import",
+    "patch": "candidates/csvline/missing_import.diff",
+    "correct": false,
+    "expected_failure": "dependency"
+  },
+  {
+    "task": "csvline",
+    "kind": "stale_context",
+    "patch": "candidates/csvline/stale_context.diff",
+    "correct": false,
+    "expected_failure": "patch_does_not_apply"
+  },
+  {
+    "task": "csvline",
+    "kind": "path_escape",
+    "patch": "candidates/csvline/path_escape.diff",
+    "correct": false,
+    "expected_failure": "policy"
+  },
+  {
+    "task": "dates",
+    "kind": "gold",
+    "patch": "candidates/dates/gold.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "dates",
+    "kind": "alt_correct",
+    "patch": "candidates/dates/alt_correct.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "dates",
+    "kind": "overfit",
+    "patch": "candidates/dates/overfit.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "dates",
+    "kind": "plausible_wrong",
+    "patch": "candidates/dates/plausible_wrong.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "dates",
+    "kind": "test_tampering",
+    "patch": "candidates/dates/test_tampering.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "dates",
+    "kind": "syntax_error",
+    "patch": "candidates/dates/syntax_error.diff",
+    "correct": false,
+    "expected_failure": "build"
+  },
+  {
+    "task": "dates",
+    "kind": "missing_import",
+    "patch": "candidates/dates/missing_import.diff",
+    "correct": false,
+    "expected_failure": "dependency"
+  },
+  {
+    "task": "dates",
+    "kind": "stale_context",
+    "patch": "candidates/dates/stale_context.diff",
+    "correct": false,
+    "expected_failure": "patch_does_not_apply"
+  },
+  {
+    "task": "dates",
+    "kind": "path_escape",
+    "patch": "candidates/dates/path_escape.diff",
+    "correct": false,
+    "expected_failure": "policy"
+  },
+  {
+    "task": "roman",
+    "kind": "gold",
+    "patch": "candidates/roman/gold.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "roman",
+    "kind": "alt_correct",
+    "patch": "candidates/roman/alt_correct.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "roman",
+    "kind": "overfit",
+    "patch": "candidates/roman/overfit.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "roman",
+    "kind": "plausible_wrong",
+    "patch": "candidates/roman/plausible_wrong.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "roman",
+    "kind": "test_tampering",
+    "patch": "candidates/roman/test_tampering.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "roman",
+    "kind": "syntax_error",
+    "patch": "candidates/roman/syntax_error.diff",
+    "correct": false,
+    "expected_failure": "build"
+  },
+  {
+    "task": "roman",
+    "kind": "missing_import",
+    "patch": "candidates/roman/missing_import.diff",
+    "correct": false,
+    "expected_failure": "dependency"
+  },
+  {
+    "task": "roman",
+    "kind": "infinite_loop",
+    "patch": "candidates/roman/infinite_loop.diff",
+    "correct": false,
+    "expected_failure": "timeout"
+  },
+  {
+    "task": "roman",
+    "kind": "stale_context",
+    "patch": "candidates/roman/stale_context.diff",
+    "correct": false,
+    "expected_failure": "patch_does_not_apply"
+  },
+  {
+    "task": "roman",
+    "kind": "path_escape",
+    "patch": "candidates/roman/path_escape.diff",
+    "correct": false,
+    "expected_failure": "policy"
+  },
+  {
+    "task": "paginate",
+    "kind": "gold",
+    "patch": "candidates/paginate/gold.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "paginate",
+    "kind": "alt_correct",
+    "patch": "candidates/paginate/alt_correct.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "paginate",
+    "kind": "overfit",
+    "patch": "candidates/paginate/overfit.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "paginate",
+    "kind": "regression",
+    "patch": "candidates/paginate/regression.diff",
+    "correct": false,
+    "expected_failure": "regression"
+  },
+  {
+    "task": "paginate",
+    "kind": "test_tampering",
+    "patch": "candidates/paginate/test_tampering.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "paginate",
+    "kind": "syntax_error",
+    "patch": "candidates/paginate/syntax_error.diff",
+    "correct": false,
+    "expected_failure": "build"
+  },
+  {
+    "task": "paginate",
+    "kind": "missing_import",
+    "patch": "candidates/paginate/missing_import.diff",
+    "correct": false,
+    "expected_failure": "dependency"
+  },
+  {
+    "task": "paginate",
+    "kind": "infinite_loop",
+    "patch": "candidates/paginate/infinite_loop.diff",
+    "correct": false,
+    "expected_failure": "timeout"
+  },
+  {
+    "task": "paginate",
+    "kind": "stale_context",
+    "patch": "candidates/paginate/stale_context.diff",
+    "correct": false,
+    "expected_failure": "patch_does_not_apply"
+  },
+  {
+    "task": "paginate",
+    "kind": "path_escape",
+    "patch": "candidates/paginate/path_escape.diff",
+    "correct": false,
+    "expected_failure": "policy"
+  },
+  {
+    "task": "backoff",
+    "kind": "gold",
+    "patch": "candidates/backoff/gold.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "backoff",
+    "kind": "alt_correct",
+    "patch": "candidates/backoff/alt_correct.diff",
+    "correct": true,
+    "expected_failure": "none"
+  },
+  {
+    "task": "backoff",
+    "kind": "overfit",
+    "patch": "candidates/backoff/overfit.diff",
+    "correct": false,
+    "expected_failure": "hidden_tests"
+  },
+  {
+    "task": "backoff",
+    "kind": "regression",
+    "patch": "candidates/backoff/regression.diff",
+    "correct": false,
+    "expected_failure": "regression"
+  },
+  {
+    "task": "backoff",
+    "kind": "test_tampering",
+    "patch": "candidates/backoff/test_tampering.diff",
+    "correct": false,
+    "expected_failure": "fail_to_pass"
+  },
+  {
+    "task": "backoff",
+    "kind": "syntax_error",
+    "patch": "candidates/backoff/syntax_error.diff",
+    "correct": false,
+    "expected_failure": "build"
+  },
+  {
+    "task": "backoff",
+    "kind": "missing_import",
+    "patch": "candidates/backoff/missing_import.diff",
+    "correct": false,
+    "expected_failure": "dependency"
+  },
+  {
+    "task": "backoff",
+    "kind": "stale_context",
+    "patch": "candidates/backoff/stale_context.diff",
+    "correct": false,
+    "expected_failure": "patch_does_not_apply"
+  },
+  {
+    "task": "backoff",
+    "kind": "path_escape",
+    "patch": "candidates/backoff/path_escape.diff",
+    "correct": false,
+    "expected_failure": "policy"
+  }
+]

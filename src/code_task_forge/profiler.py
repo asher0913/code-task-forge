@@ -1,9 +1,21 @@
+"""A quick inventory of a repository: languages, build manifests and test files."""
+
 from __future__ import annotations
 
 from collections import Counter
+from dataclasses import dataclass
 from pathlib import Path
 
-from .models import RepositoryProfile
+
+@dataclass(frozen=True)
+class RepositoryProfile:
+    root: str
+    languages: dict[str, int]
+    manifests: tuple[str, ...]
+    test_files: tuple[str, ...]
+    source_files: int
+    total_files: int
+
 
 LANGUAGES = {
     ".py": "Python",
@@ -55,11 +67,7 @@ class RepositoryProfiler:
             if language:
                 language_counts[language] += 1
             lower = relative.as_posix().lower()
-            is_test = (
-                path.name.startswith("test_")
-                or "/tests/" in f"/{lower}"
-                or lower.endswith(".test.ts")
-            )
+            is_test = path.name.startswith("test_") or "/tests/" in f"/{lower}" or lower.endswith(".test.ts")
             if is_test:
                 tests.append(relative.as_posix())
 

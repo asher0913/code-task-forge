@@ -1,0 +1,11 @@
+--- a/tinylib/semver.py
++++ b/tinylib/semver.py
+@@ -2,7 +2,7 @@
+ 
+ 
+ def _parts(version):
+-    return version.split(".")
++    return [int(p) for p in version.split(".")]
+ 
+ 
+ def compare(a, b):

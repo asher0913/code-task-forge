@@ -1,0 +1,28 @@
+--- a/tinylib/csvline.py
++++ b/tinylib/csvline.py
+@@ -4,4 +4,24 @@
+ def parse_line(line, sep=","):
+     """Split one line into fields. Fields may be double-quoted; inside quotes, the separator is
+     literal and a doubled quote stands for one quote character."""
+-    return line.split(sep)
++    fields, current, quoted, i = [], [], False, 0
++    while i < len(line):
++        ch = line[i]
++        if quoted:
++            if ch == '"' and line[i + 1 : i + 2] == '"':
++                current.append('"')
++                i += 1
++            elif ch == '"':
++                quoted = False
++            else:
++                current.append(ch)
++        elif ch == '"':
++            quoted = True
++        elif ch == sep:
++            fields.append("".join(current).strip())
++            current = []
++        else:
++            current.append(ch)
++        i += 1
++    fields.append("".join(current).strip())
++    return fields

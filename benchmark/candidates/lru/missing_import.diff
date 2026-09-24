@@ -1,0 +1,22 @@
+--- a/tinylib/lru.py
++++ b/tinylib/lru.py
+@@ -1,4 +1,6 @@
+ """A least-recently-used cache."""
++
++from tinylib._compat import ensure_sequence
+ 
+ from collections import OrderedDict
+ 
+@@ -15,10 +17,12 @@
+     def get(self, key, default=None):
+         if key not in self._data:
+             return default
++        self._data.move_to_end(key)
+         return self._data[key]
+ 
+     def put(self, key, value):
+         self._data[key] = value
++        self._data.move_to_end(key)
+         if len(self._data) > self.capacity:
+             self._data.popitem(last=False)
+ 

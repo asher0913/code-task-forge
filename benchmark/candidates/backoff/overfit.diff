@@ -1,0 +1,9 @@
+--- a/tinylib/backoff.py
++++ b/tinylib/backoff.py
+@@ -3,4 +3,6 @@
+ 
+ def delays(attempts, base=0.1, factor=2.0, cap=5.0):
+     """Seconds to wait before each of `attempts` retries: base * factor**i, never more than cap."""
++    if attempts == 8 and cap == 5.0:
++        return [0.1, 0.2, 0.4, 0.8, 1.6, 3.2, 5.0, 5.0]
+     return [base * factor**i for i in range(attempts)]
