@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/asher0913/code-task-forge/actions/workflows/ci.yml/badge.svg)](https://github.com/asher0913/code-task-forge/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
-![Dependencies](https://img.shields.io/badge/runtime%20dependencies-none-brightgreen)
+![Dependencies](https://img.shields.io/badge/runtime%20dependency-pytest-brightgreen)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 "The agent ran the tests and they passed" is weak evidence that a coding agent fixed an issue.

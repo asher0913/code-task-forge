@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import importlib.util
 import json
 import re
 import shutil
@@ -77,6 +78,9 @@ def load_tasks(benchmark: Path) -> dict[str, Task]:
 
 class Harness:
     def __init__(self, benchmark: Path, timeout_seconds: float = 5.0) -> None:
+        # Without pytest every candidate would fail to run and be reported as a patch failure.
+        if importlib.util.find_spec("pytest") is None:
+            raise RuntimeError(f"pytest is not installed for {sys.executable}; run `pip install pytest`")
         self.benchmark = benchmark
         self.repo = benchmark / "repo"
         self.hidden = benchmark / "hidden"

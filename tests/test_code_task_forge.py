@@ -81,6 +81,16 @@ def test_stale_context_does_not_apply(tmp_path):
     assert not applied and message
 
 
+def test_harness_refuses_to_start_without_pytest(monkeypatch):
+    # Otherwise every candidate would "fail" and be blamed on the patch.
+    import importlib.util
+
+    real = importlib.util.find_spec
+    monkeypatch.setattr(importlib.util, "find_spec", lambda name, *a: None if name == "pytest" else real(name, *a))
+    with pytest.raises(RuntimeError, match="pytest is not installed"):
+        Harness(BENCH)
+
+
 def test_tasks_follow_the_swe_bench_split():
     assert len(TASKS) == 10
     for task in TASKS.values():
