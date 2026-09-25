@@ -91,6 +91,24 @@ def test_harness_refuses_to_start_without_pytest(monkeypatch):
         Harness(BENCH)
 
 
+def test_held_out_tests_can_live_outside_the_repository(tmp_path, monkeypatch):
+    import shutil
+
+    private = tmp_path / "private-hidden"
+    shutil.copytree(BENCH / "hidden", private)
+    candidate = patch("dates", "plausible_wrong")
+    for harness in (Harness(BENCH, hidden_dir=private), None):
+        if harness is None:
+            monkeypatch.setenv("CODETASKFORGE_HIDDEN_DIR", str(private))
+            harness = Harness(BENCH)
+        assert harness.hidden == private
+        assert harness.evaluate(TASKS["dates"], candidate, HIDDEN).failure == "hidden_tests"
+    with pytest.raises(FileNotFoundError):
+        Harness(BENCH, hidden_dir=tmp_path / "missing")
+    with pytest.raises(ValueError):
+        Harness(BENCH, hidden_dir=BENCH / "repo" / "tests")
+
+
 def test_tasks_follow_the_swe_bench_split():
     assert len(TASKS) == 10
     for task in TASKS.values():

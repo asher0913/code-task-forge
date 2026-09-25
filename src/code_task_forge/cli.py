@@ -15,6 +15,11 @@ from .profiler import RepositoryProfiler
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="code-task-forge", description=__doc__)
     parser.add_argument("--benchmark", type=Path, default=DEFAULT_BENCHMARK)
+    parser.add_argument(
+        "--hidden-dir",
+        type=Path,
+        help="held-out tests (default: $CODETASKFORGE_HIDDEN_DIR, else BENCHMARK/hidden, which is public)",
+    )
     sub = parser.add_subparsers(dest="command", required=True)
     prof = sub.add_parser("profile", help="languages, manifests and test files of a repository")
     prof.add_argument("path", type=Path)
@@ -34,10 +39,10 @@ def main(argv: list[str] | None = None) -> None:
             print(f"{task.id:10s} {task.issue}")
     elif args.command == "evaluate":
         task = load_tasks(args.benchmark)[args.task]
-        verdict = Harness(args.benchmark).evaluate(task, args.patch.read_text(), args.judge)
+        verdict = Harness(args.benchmark, hidden_dir=args.hidden_dir).evaluate(task, args.patch.read_text(), args.judge)
         print(json.dumps(verdict.to_dict(), indent=2))
     else:
-        result = run(args.benchmark)
+        result = run(args.benchmark, hidden_dir=args.hidden_dir)
         text = json.dumps(result, indent=2) + "\n"
         if args.out:
             args.out.parent.mkdir(parents=True, exist_ok=True)

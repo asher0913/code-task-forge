@@ -18,10 +18,15 @@ def load_candidates(benchmark: Path) -> list[dict]:
     return json.loads((benchmark / "candidates" / "manifest.json").read_text())
 
 
-def run(benchmark: Path = DEFAULT_BENCHMARK, workers: int | None = None, timeout_seconds: float = 5.0) -> dict:
+def run(
+    benchmark: Path = DEFAULT_BENCHMARK,
+    workers: int | None = None,
+    timeout_seconds: float = 5.0,
+    hidden_dir: Path | None = None,
+) -> dict:
     tasks = load_tasks(benchmark)
     candidates = load_candidates(benchmark)
-    harness = Harness(benchmark, timeout_seconds)
+    harness = Harness(benchmark, timeout_seconds, hidden_dir)
     jobs = [(c, judge) for c in candidates for judge in JUDGES]
 
     def one(job):

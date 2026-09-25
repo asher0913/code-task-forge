@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 import re
 import shutil
 import sys
@@ -76,14 +77,28 @@ def load_tasks(benchmark: Path) -> dict[str, Task]:
     return {t["id"]: Task(**{k: tuple(v) if isinstance(v, list) else v for k, v in t.items()}) for t in raw}
 
 
+HIDDEN_DIR_ENV = "CODETASKFORGE_HIDDEN_DIR"
+
+
 class Harness:
-    def __init__(self, benchmark: Path, timeout_seconds: float = 5.0) -> None:
+    """Judges patches against ``benchmark/repo``.
+
+    Held-out tests are read from ``hidden_dir``, else from ``$CODETASKFORGE_HIDDEN_DIR``, else from
+    ``benchmark/hidden``. The last is committed to this public repository and is only suitable for
+    the demo; a real evaluation should keep held-out tests somewhere the evaluated agent cannot read.
+    """
+
+    def __init__(self, benchmark: Path, timeout_seconds: float = 5.0, hidden_dir: Path | None = None) -> None:
         # Without pytest every candidate would fail to run and be reported as a patch failure.
         if importlib.util.find_spec("pytest") is None:
             raise RuntimeError(f"pytest is not installed for {sys.executable}; run `pip install pytest`")
         self.benchmark = benchmark
         self.repo = benchmark / "repo"
-        self.hidden = benchmark / "hidden"
+        self.hidden = Path(hidden_dir or os.environ.get(HIDDEN_DIR_ENV) or benchmark / "hidden")
+        if not self.hidden.is_dir():
+            raise FileNotFoundError(f"held-out test directory not found: {self.hidden}")
+        if self.hidden.resolve().is_relative_to(self.repo.resolve()):
+            raise ValueError("held-out tests must not live inside the repository that patches are applied to")
         self.runner = SandboxedRunner(timeout_seconds)
 
     def _pytest(self, workspace: Path, ids: list[str]) -> tuple[CommandResult, dict[str, str]]:

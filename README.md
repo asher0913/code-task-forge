@@ -150,6 +150,7 @@ pip install -e '.[dev]'
 
 code-task-forge tasks                                        # issue text of each task
 code-task-forge evaluate --task roman --patch my_fix.diff    # judge one patch (default: + hidden tests)
+code-task-forge --hidden-dir /secure/held-out benchmark      # held-out tests kept outside the repository
 code-task-forge benchmark --out results/benchmark.json      # 98 candidates x 3 judges, about 15 s
 code-task-forge profile path/to/repo                         # languages, manifests, test files
 python benchmark/build_candidates.py                         # regenerate tasks.json and the candidates
@@ -161,7 +162,7 @@ docker build -t code-task-forge . && docker run --network none --read-only --tmp
 
 ## Tests
 
-`pytest -q` runs 21 tests:
+`pytest -q` runs 23 tests:
 
 - the runner refuses shells and non-test commands, hides the caller's environment, and kills
   the whole process group on timeout;
@@ -171,7 +172,8 @@ docker build -t code-task-forge . && docker run --network none --read-only --tmp
 - tampering fools only the exit code, and fitting fools everything but the hidden tests;
 - each failure kind is classified correctly;
 - the committed headline numbers hold;
-- the CLI works, and the API never names a hidden test.
+- the CLI works, and the API never names a hidden test;
+- held-out tests can be loaded from outside the repository, and never from inside the patched repo.
 
 ## Limitations
 
@@ -182,15 +184,22 @@ docker build -t code-task-forge . && docker run --network none --read-only --tmp
 - Tamper detection covers edits to `tests/`. A patch could still change behaviour through
   `conftest.py` or `pytest.ini` elsewhere in the tree.
 
-## Known issues
+## What "hidden" does and does not mean here
 
-- **The hidden tests are public.** `benchmark/hidden/` is committed to this repository, so they are
-  hidden only from an agent that is not given this repository. A real evaluation should keep them in
-  a separate store that only the harness can read.
-- **No OS-level isolation.** Candidate code runs as the calling user with that user's filesystem
-  access. The allowlist and scrubbed environment limit what the harness itself starts, not what the
-  code under test does. Run it inside the provided Docker image with `--network none --read-only`, or
-  in a microVM.
+"The API does not show the hidden tests" and "the agent cannot see the hidden tests" are
+different claims. This harness makes the first one and part of the second:
+
+| Level | Holds here? | How |
+|---|---|---|
+| The API never names a held-out test | Yes | `/v1/tasks` lists visible tests only; `/v1/evaluate` reports held-out results as a count. Tested by `test_api_hides_hidden_tests`. |
+| Held-out tests are not in the workspace the patch is applied to | Yes | They are copied in only for the `+ hidden tests` judge, after the patch is applied and the original tests are restored. |
+| The evaluated agent has never seen them | **Not for this public benchmark** | `benchmark/hidden/` is committed to GitHub, so any agent that can read this repository can read them. For a real evaluation, keep held-out tests outside the repository and pass `--hidden-dir` or set `CODETASKFORGE_HIDDEN_DIR`. The harness refuses a held-out directory inside the patched repository. Tested by `test_held_out_tests_can_live_outside_the_repository`. |
+| Code under test cannot read held-out tests at judging time | **No** | pytest imports the held-out tests into the same process as the patched code, as SWE-bench does. A patch could, in principle, inspect them at run time. Only a sandbox that separates test oracles from the code under test would close this. |
+
+**Process isolation.** Candidate code runs as the calling user, with that user's filesystem
+access. The argv allowlist, scrubbed environment and process-group timeout limit what the
+harness starts, not what the code under test does. Run it in the provided Docker image with
+`--network none --read-only`, or in a microVM.
 
 ## License
 
