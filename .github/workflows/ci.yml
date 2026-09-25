@@ -23,3 +23,18 @@ jobs:
         run: |
           code-task-forge benchmark --out /tmp/benchmark.json
           python -c "import json; assert json.load(open('/tmp/benchmark.json')) == json.load(open('results/benchmark.json')); print('reproduced')"
+
+  quickstart:
+    # The README's one-command demo on a clean runner.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: ./scripts/demo.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: demo-run
+          path: runs/demo/

@@ -27,6 +27,25 @@ $ code-task-forge evaluate --task dates --patch benchmark/candidates/dates/plaus
                   "tests/test_dates_hidden.py::test_leap_february": "failed", ... } }
 ```
 
+## Quick start
+
+```bash
+git clone https://github.com/asher0913/code-task-forge && cd code-task-forge
+./scripts/demo.sh
+```
+
+This needs Python 3.10+ and git. It takes about 25 seconds on a laptop and does not need Docker or a
+GPU. The script:
+
+1. creates `.venv`;
+2. judges the plausible-but-wrong `dates` patch twice: the SWE-bench judge accepts it, and the
+   held-out tests reject it;
+3. reruns all 98 candidates under all 3 judges;
+4. checks every verdict against [`results/benchmark.json`](results/benchmark.json).
+
+Outputs and the log go to `runs/demo/`. The `quickstart` CI job runs the same script on a clean
+Ubuntu runner.
+
 ## Results
 
 10 tasks, each a reported bug in a small library (`benchmark/repo/tinylib`) with an issue text,
@@ -95,6 +114,35 @@ the visible tests before and after the gold patch (`benchmark/build_candidates.p
 checks that the gold patch passes every hidden test). The HTTP API lists visible tests only and
 reports hidden results as a count, so an agent calling it cannot learn the hidden test names.
 
+## Evidence and CI coverage
+
+| Claim | Data | Evidence | Rerun in CI? |
+|---|---|---|---|
+| Judge table and per-kind table | 98 hand-built candidate patches with known labels (synthetic by construction) | `results/benchmark.json` | Yes: every verdict is regenerated and compared |
+| Hidden-test sampling (72% / 91% / 98% / 100%) | same | computed in `benchmark.py` from the same verdicts | Yes, as part of the same file |
+| Runner isolation (no shell, scrubbed environment, process-group kill) | unit tests | `tests/test_code_task_forge.py` | Yes, on Python 3.10 and 3.12 |
+| The API never names a hidden test | unit test | `test_api_hides_hidden_tests` | Yes |
+
+## Design trade-offs
+
+| Decision | Chosen | Alternative | Why |
+|---|---|---|---|
+| Test restoration | delete `tests/` and copy the originals back after applying the patch | diff-check the patch for test edits | Restoring makes tampering irrelevant rather than something to detect, which is what SWE-bench does. Test edits are still flagged for the report. |
+| Command execution | argv allowlist, no shell, scrubbed environment, own process group | `subprocess.run(shell=True)` | A candidate cannot chain commands or read the caller's secrets, and a fork bomb or hung child dies with its group. |
+| Isolation | policy layer inside the harness; containers are left to the deployment | a microVM per run | This keeps the harness dependency-free and fast (98 × 3 runs in about 15 s). The price is spelled out under Known issues. |
+| Verdict source | JUnit XML parsed per test id | exit codes | Exit codes cannot tell fail-to-pass from pass-to-pass; per-test outcomes can. |
+
+## Code map
+
+| File | What to look at |
+|---|---|
+| `src/code_task_forge/harness.py` | `Harness.evaluate`: patch policy → apply → restore tests → run the right test ids → classify the failure |
+| `src/code_task_forge/runner.py` | `SandboxedRunner.run` (allowlist, scrubbed environment, process-group timeout) and `junit_outcomes` |
+| `src/code_task_forge/patch.py` | `touched_paths`, `check_policy` (no `..`, absolute paths, `.git/`, `.github/`), `apply` via `git apply --check` |
+| `src/code_task_forge/benchmark.py` | runs every candidate under every judge and computes the tables above |
+| `benchmark/build_candidates.py` | how the tasks, fail-to-pass and pass-to-pass lists and candidates are generated |
+| `src/code_task_forge/api.py` | FastAPI app that hides hidden-test names |
+
 ## Usage
 
 ```bash
@@ -133,6 +181,16 @@ docker build -t code-task-forge . && docker run --network none --read-only --tmp
   production run it in a container or microVM with no network, as the Dockerfile suggests.
 - Tamper detection covers edits to `tests/`. A patch could still change behaviour through
   `conftest.py` or `pytest.ini` elsewhere in the tree.
+
+## Known issues
+
+- **The hidden tests are public.** `benchmark/hidden/` is committed to this repository, so they are
+  hidden only from an agent that is not given this repository. A real evaluation should keep them in
+  a separate store that only the harness can read.
+- **No OS-level isolation.** Candidate code runs as the calling user with that user's filesystem
+  access. The allowlist and scrubbed environment limit what the harness itself starts, not what the
+  code under test does. Run it inside the provided Docker image with `--network none --read-only`, or
+  in a microVM.
 
 ## License
 
