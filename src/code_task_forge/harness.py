@@ -9,7 +9,7 @@
     patch, then require every test that reproduces the issue to pass and every
     test that passed before to keep passing.
 ``+ hidden tests``
-    The same, plus held-out tests that the agent never saw. This is the only
+    The same, plus held-out tests kept out of the agent's workspace. This is the only
     one of the three that can tell a fix from a patch fitted to the visible tests.
 """
 
