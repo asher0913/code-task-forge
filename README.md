@@ -129,7 +129,7 @@ reports hidden results as a count, so an agent calling it cannot learn the hidde
 |---|---|---|---|
 | Test restoration | delete `tests/` and copy the originals back after applying the patch | diff-check the patch for test edits | Restoring makes tampering irrelevant rather than something to detect, which is what SWE-bench does. Test edits are still flagged for the report. |
 | Command execution | argv allowlist, no shell, scrubbed environment, own process group | `subprocess.run(shell=True)` | A candidate cannot chain commands or read the caller's secrets, and a fork bomb or hung child dies with its group. |
-| Isolation | policy layer inside the harness; containers are left to the deployment | a microVM per run | This keeps the harness dependency-free and fast (98 × 3 runs in about 15 s). The price is spelled out under Known issues. |
+| Isolation | policy layer inside the harness; containers are left to the deployment | a microVM per run | This keeps the harness light (pytest is its only runtime dependency) and fast: 98 × 3 runs take about 15 s. The price is spelled out under Known issues. |
 | Verdict source | JUnit XML parsed per test id | exit codes | Exit codes cannot tell fail-to-pass from pass-to-pass; per-test outcomes can. |
 
 ## Code map
