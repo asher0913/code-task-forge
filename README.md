@@ -76,7 +76,7 @@ What each judge lets through (accepted / candidates):
   the harness also flags any patch that touches `tests/`.
 - **Visible tests cannot tell a fix from a fit.** Hard-coded answers and plausible-but-wrong
   fixes pass fail-to-pass and pass-to-pass alike: 15 of the 35 patches the SWE-bench judge
-  accepts are wrong. Only tests the agent never saw separate them.
+  accepts are wrong. Only held-out tests, kept out of the workspace the patch was written against, separate them.
 - **A few held-out tests go a long way.** The 15 fitted patches fail 1 to 4 of their task's 4
   hidden tests. Running only k randomly chosen hidden tests would catch:
 
